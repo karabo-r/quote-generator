@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Contact from "./Components/Contact";
+import Quotes from "./Components/Quotes";
 const App = () => {
-	const [singleQuote, setSingleQuote] = useState([]);
+	const [quotes, setQuotes] = useState([]);
 	const [isViewingMultiQuotes, setIsViewingMultiQuotes] = useState(false);
 
-	const processedSingleQuote = singleQuote?.map((item) => {
+	const processedQuotes = quotes?.map((item) => {
 		return (
 			<>
 				<h1 className="quote">{item.quoteText}</h1>
-
 				<div
-					className={singleQuote.length <= 1 ? "author" : "remove-author"}
+					className={quotes.length <= 1 ? "author" : "remove-author"}
 					onClick={requestQuotesFromAuthor}
 				>
 					<h2>{item.quoteAuthor}</h2> <br />
@@ -20,13 +21,14 @@ const App = () => {
 		);
 	});
 
-	async function requestQuotesFromAuthor() {
-		const author = singleQuote[0].quoteAuthor.split(" ").join("+");
+	function requestQuotesFromAuthor() {
+		const author = quotes[0].quoteAuthor.split(" ").join("+");
 		const link = `https://quote-garden.herokuapp.com/api/v3/quotes/?author=${author}`;
-		console.log(link);
 		fetch(link)
 			.then((response) => response.json())
 			.then((data) => {
+				// the limit api parameter doesn't work properly
+				// limit to only 3 quotes to be displayed
 				let numberOfQuotes = 0;
 				let arrayOfQuotes = [];
 				data.data.map((quote) => {
@@ -36,7 +38,7 @@ const App = () => {
 					}
 				});
 
-				setSingleQuote(arrayOfQuotes);
+				setQuotes(arrayOfQuotes);
 				setIsViewingMultiQuotes(true);
 			});
 	}
@@ -45,27 +47,26 @@ const App = () => {
 		fetch("https://quote-garden.herokuapp.com/api/v3/quotes/random")
 			.then((response) => response.json())
 			.then((data) => {
-				setSingleQuote(data.data);
+				setQuotes(data.data);
 				setIsViewingMultiQuotes(false);
 			});
 	}
 
 	// fetch a random quote
-	useEffect(() => {
-		fetchRandomQuote();
-	}, []);
+	useEffect(fetchRandomQuote, []);
 
+	const propsCollection = {
+		quotes,
+		processedQuotes,
+		isViewingMultiQuotes,
+	};
 	return (
 		<Container>
-			<button onClick={fetchRandomQuote}>
-				random <img src="autorenew-icon.svg" />
+			<button onClick={fetchRandomQuote} className="generate-button">
+				random <img src="autorenew-icon.svg" alt="Get a random quote" />
 			</button>
-			<div className="display">
-				{isViewingMultiQuotes && (
-					<h1 className="title">{singleQuote[0].quoteAuthor}</h1>
-				)}
-				{processedSingleQuote}
-			</div>
+			<Quotes {...propsCollection} />
+			<Contact />
 		</Container>
 	);
 };
@@ -75,22 +76,22 @@ const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 
-	button {
+	.generate-button {
 		position: absolute;
 		right: 3rem;
-		top: 1rem;
+		top: 1.5	rem;
 		font-family: "Raleway";
 		font-style: normal;
 		background-color: transparent;
 		outline: none;
 		border: none;
 		cursor: pointer;
-		font-size: 1rem;
+		font-size: 1.1rem;
 		text-align: center;
 		display: flex;
 
 		img {
-			margin-left: 5px;
+			margin-left: 7px;
 			width: 20px;
 			height: auto;
 		}
@@ -117,8 +118,8 @@ const Container = styled.div`
 			font-style: normal;
 			font-weight: 500;
 			font-size: 1.5rem;
-			border-left: 0.5rem solid #f7df94;
 			padding-left: 3rem;
+			border-left: 0.5rem solid #f7df94;
 		}
 
 		.author {

@@ -79,7 +79,7 @@ const Container = styled.div`
 	.generate-button {
 		position: absolute;
 		right: 3rem;
-		top: 1.5	rem;
+		top: 1.2rem;
 		font-family: "Raleway";
 		font-style: normal;
 		background-color: transparent;

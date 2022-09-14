@@ -27,7 +27,7 @@ const App = () => {
 		fetch(link)
 			.then((response) => response.json())
 			.then((data) => {
-				// the limit api parameter doesn't work properly
+				// the limit api parameter doesn't work on authors quotes
 				// limit to only 3 quotes to be displayed
 				let numberOfQuotes = 0;
 				let arrayOfQuotes = [];
@@ -78,7 +78,7 @@ const Container = styled.div`
 
 	.generate-button {
 		position: absolute;
-		right: 3rem;
+		right: 1rem;
 		top: 1.2rem;
 		font-family: "Raleway";
 		font-style: normal;
@@ -148,6 +148,23 @@ const Container = styled.div`
 
 		.remove-author {
 			visibility: hidden;
+		}
+
+		@media only screen and (max-width: 600px) {
+			width: 100%;
+
+			.quote {
+				font-size: 1.5rem;
+				padding-left: 1.5rem;
+			}
+			.author {
+				align-items: center;
+			}
+		}
+	}
+	@media only screen and (max-width: 600px) {
+		.generate-button {
+			right: 1rem;
 		}
 	}
 `;

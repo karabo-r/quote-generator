@@ -1,5 +1,3 @@
-<!-- Please update value in the {}  -->
-
 <h1 align="center">Quote Generator</h1>
 
 <div align="center">
@@ -28,6 +26,8 @@
 
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
+  <!-- - [Generate random quotes or view more quotes from an author.](#generate-random-quotes-or-view-more-quotes-from-an-author) -->
+  - [Where can I see your demo?](#where-can-i-see-your-demo)
   - [Built With](#built-with)
 - [Features](#features)
 - [How To Use](#how-to-use)
@@ -38,15 +38,14 @@
 
 ## Overview
 
+### Generate random quotes or view more quotes from an author. 
 ![screenshot](/screenshots/Recording.gif)
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
 
+### Where can I see your demo?
+ You can view the live demo [here](https://image-uploader-vabs.onrender.com/). 🙂<br><br>
+  
 ### Built With
 
 - [React](https://reactjs.org/)
